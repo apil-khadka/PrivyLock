@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AppLock protects macOS apps with Touch ID or your Mac login password.">
+  <title>AppLock for macOS</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0d1117;
+      --panel: #151b24;
+      --panel-strong: #1d2633;
+      --text: #f4f7fb;
+      --muted: #aab5c4;
+      --accent: #55a8ff;
+      --accent-strong: #247de2;
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 24px 80px rgba(0,0,0,.28);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 80% 0%, rgba(36,125,226,.22), transparent 34rem),
+        radial-gradient(circle at 0% 30%, rgba(85,168,255,.10), transparent 30rem),
+        var(--bg);
+      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    }
+    .wrap { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
+    .brand { display: flex; gap: 10px; align-items: center; font-weight: 700; letter-spacing: .01em; }
+    .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--accent-strong); font-size: 19px; }
+    nav a { color: var(--muted); text-decoration: none; margin-left: 22px; }
+    nav a:hover { color: var(--text); }
+    .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 64px; align-items: center; padding: 76px 0 92px; }
+    .eyebrow { color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .13em; font-size: 12px; }
+    h1 { font-size: clamp(42px, 7vw, 76px); line-height: 1.02; letter-spacing: -.055em; margin: 14px 0 22px; }
+    .lead { color: var(--muted); font-size: 20px; max-width: 600px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 18px; border: 1px solid var(--border); border-radius: 11px; color: var(--text); text-decoration: none; font-weight: 700; background: var(--panel); }
+    .button.primary { background: var(--accent-strong); border-color: var(--accent-strong); }
+    .button:hover { filter: brightness(1.12); }
+    .mockup { border: 1px solid var(--border); border-radius: 22px; padding: 14px; background: rgba(21,27,36,.82); box-shadow: var(--shadow); transform: rotate(2deg); }
+    .window { overflow: hidden; border: 1px solid rgba(255,255,255,.16); border-radius: 15px; background: #20242a; }
+    .window-bar { display: flex; gap: 6px; padding: 13px; border-bottom: 1px solid rgba(255,255,255,.1); }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
+    .dot:nth-child(2) { background: #febc2e; } .dot:nth-child(3) { background: #28c840; }
+    .window-body { padding: 22px; }
+    .window-title { font-size: 20px; font-weight: 700; margin-bottom: 18px; }
+    .app-row { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-top: 1px solid rgba(255,255,255,.1); }
+    .app-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: #d9e8ff; color: #176bd1; font-size: 20px; }
+    .app-name { flex: 1; font-weight: 650; } .status { color: #ff837d; font-size: 13px; }
+    section { padding: 70px 0; } h2 { font-size: 34px; line-height: 1.15; letter-spacing: -.035em; margin: 0 0 14px; }
+    .section-lead { color: var(--muted); max-width: 650px; margin: 0 0 30px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { padding: 24px; border: 1px solid var(--border); border-radius: 16px; background: rgba(21,27,36,.72); }
+    .card-icon { font-size: 24px; } .card h3 { margin: 10px 0 6px; font-size: 18px; } .card p { color: var(--muted); margin: 0; }
+    .install { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    pre { overflow-x: auto; margin: 0; padding: 20px; border: 1px solid var(--border); border-radius: 14px; background: #090d12; color: #d8e6f7; }
+    footer { padding: 34px 0 50px; color: var(--muted); border-top: 1px solid var(--border); }
+    @media (max-width: 760px) { .hero, .install { grid-template-columns: 1fr; gap: 34px; } .hero { padding-top: 46px; } .grid { grid-template-columns: 1fr; } .mockup { transform: none; } nav a { margin-left: 10px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <div class="brand"><span class="brand-mark">🔒</span> AppLock</div>
+      <div><a href="https://github.com/apil-khadka/AppLock">GitHub</a><a href="https://github.com/apil-khadka/AppLock/releases/latest">Releases</a></div>
+    </nav>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="eyebrow">Native macOS menu-bar app</div>
+          <h1>Your private apps, actually private.</h1>
+          <p class="lead">AppLock keeps selected apps closed until you authenticate with Touch ID or your Mac login password. Simple, local, and built for macOS.</p>
+          <div class="actions">
+            <a class="button primary" href="https://github.com/apil-khadka/AppLock/releases/latest/download/AppLock-macOS.zip">Download for Mac</a>
+            <a class="button" href="https://github.com/apil-khadka/AppLock">View source</a>
+          </div>
+        </div>
+        <div class="mockup" aria-label="AppLock window preview">
+          <div class="window"><div class="window-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div class="window-body">
+            <div class="window-title">Protected Apps</div>
+            <div class="app-row"><div class="app-icon">🦁</div><div class="app-name">Brave Browser<div class="status">Locked</div></div><span>Unlock</span></div>
+            <div class="app-row"><div class="app-icon">✉️</div><div class="app-name">Mail<div class="status">Locked</div></div><span>Unlock</span></div>
+          </div></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Protection without the clutter.</h2>
+        <p class="section-lead">AppLock lives in the menu bar and keeps its state across restarts, with controls designed around the way macOS users actually work.</p>
+        <div class="grid">
+          <article class="card"><div class="card-icon">🔐</div><h3>Touch ID + password</h3><p>Use Touch ID when it is available, with the secure macOS login-password fallback when it is not.</p></article>
+          <article class="card"><div class="card-icon">⚡</div><h3>Launch protection</h3><p>Locked apps are stopped before or immediately after launch, with a watchdog for race conditions.</p></article>
+          <article class="card"><div class="card-icon">🌙</div><h3>Automatic locking</h3><p>Lock everything on screen lock or after a configurable period of inactivity.</p></article>
+          <article class="card"><div class="card-icon">🧭</div><h3>Clear at a glance</h3><p>See every protected app, its icon, bundle identifier, and current lock state in one place.</p></article>
+          <article class="card"><div class="card-icon">🛡️</div><h3>Safe controls</h3><p>Removing locked protection or quitting while apps are protected requires owner authentication.</p></article>
+          <article class="card"><div class="card-icon">💾</div><h3>Local by design</h3><p>Authentication stays inside macOS protected services; AppLock stores only its local configuration.</p></article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Get started in seconds.</h2>
+        <p class="section-lead">Download the latest release, move AppLock wherever you keep your apps, and add protection from the menu-bar shield.</p>
+        <div class="install">
+          <pre><code>1. Download AppLock-macOS.zip
+2. Unzip and open AppLock.app
+3. Add an app to protect
+4. Choose Lock</code></pre>
+          <pre><code># Build from source
+git clone https://github.com/apil-khadka/AppLock.git
+cd AppLock
+./build.sh release
+open build/AppLock.app</code></pre>
+        </div>
+      </section>
+    </main>
+
+    <footer>AppLock is an open-source macOS utility. A determined privileged process can bypass any user-space app locker; use it as a privacy and convenience layer.</footer>
+  </div>
+</body>
+</html>
