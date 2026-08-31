@@ -128,3 +128,7 @@ Delete it to reset PrivyLock completely.
   start any app. This is a strong convenience/safety lock, not a security boundary
   against a privileged attacker. It is comparable to app-lockers on other platforms.
 - Multiple apps can be protected at the same time; each app keeps its own lock state.
+
+## License
+
+PrivyLock is licensed under the [Apache License 2.0](LICENSE).
