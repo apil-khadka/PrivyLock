@@ -34,7 +34,7 @@ public enum TouchID {
     /// Prompts the user to authenticate with Touch ID (fingerprint) and reports the result.
     ///
     /// The `localizedReason` string is shown on the system prompt as
-    /// "<AppLock> wants to <reason>". It must be short and human readable.
+    /// "<PrivyLock> wants to <reason>". It must be short and human readable.
     public static func authenticate(localizedReason: String,
                                     completion: @escaping (AuthOutcome) -> Void) {
         let context = LAContext()
@@ -59,7 +59,7 @@ public enum TouchID {
                     outcome = .failed(error)
                 }
             } else {
-                outcome = .failed(NSError(domain: "AppLock", code: -1,
+                outcome = .failed(NSError(domain: "PrivyLock", code: -1,
                                           userInfo: [NSLocalizedDescriptionKey: "Unknown authentication error"]))
             }
             // LocalAuthentication does not promise a main-queue callback, but

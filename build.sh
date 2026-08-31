@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 #
-# Builds AppLock into a launchable .app bundle.
+# Builds PrivyLock into a launchable .app bundle.
 #
 # Usage:  ./build.sh [release|debug]
 #
 # Produces:
-#   build/AppLock.app   (the runnable app - drag to /Applications if you like)
+#   build/PrivyLock.app   (the runnable app - drag to /Applications if you like)
 
 set -euo pipefail
 
 cd "$(dirname "$0")"
 
 CONFIG="${1:-release}"
-APP="build/AppLock.app"
+APP="build/PrivyLock.app"
 
 echo "==> Building ($CONFIG)"
 swift build -c "$CONFIG"
@@ -21,8 +21,8 @@ echo "==> Assembling $APP"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
-BIN=".build/$( [ "$CONFIG" = "release" ] && echo "release" || echo "debug" )/AppLock"
-cp "$BIN" "$APP/Contents/MacOS/AppLock"
+BIN=".build/$( [ "$CONFIG" = "release" ] && echo "release" || echo "debug" )/PrivyLock"
+cp "$BIN" "$APP/Contents/MacOS/PrivyLock"
 cp "Resources/Info.plist" "$APP/Contents/Info.plist"
 cp -R "Resources/AppIcon.icns" "$APP/Contents/Resources/AppIcon.icns" 2>/dev/null || true
 

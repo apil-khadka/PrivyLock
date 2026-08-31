@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleName</key>
-    <string>AppLock</string>
+    <string>PrivyLock</string>
     <key>CFBundleDisplayName</key>
-    <string>AppLock</string>
+    <string>PrivyLock</string>
     <key>CFBundleExecutable</key>
-    <string>AppLock</string>
+    <string>PrivyLock</string>
     <key>CFBundleIdentifier</key>
-    <string>com.apil.AppLock</string>
+    <string>com.apil.PrivyLock</string>
     <key>CFBundleVersion</key>
     <string>1.0</string>
     <key>CFBundleShortVersionString</key>
@@ -31,6 +31,6 @@
     <true/>
     <!-- Touch ID authentication permission -->
     <key>NSFaceIDUsageDescription</key>
-    <string>AppLock uses Touch ID to verify your identity before unlocking a protected app.</string>
+    <string>PrivyLock uses Touch ID to verify your identity before unlocking a protected app.</string>
 </dict>
 </plist>

@@ -1,5 +1,5 @@
 import AppKit
-import AppLockCore
+import PrivyLockCore
 
 // MARK: - Small action target so menu rows and buttons can capture closures.
 
@@ -83,7 +83,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func buildStatusItem() {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        item.button?.image = NSImage(systemSymbolName: "lock.shield", accessibilityDescription: "AppLock")
+        item.button?.image = NSImage(systemSymbolName: "lock.shield", accessibilityDescription: "PrivyLock")
         statusItem = item
         rebuildMenu()
     }
@@ -121,7 +121,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Quitting while a protected app is locked would silently disable the
         // watchdog. Require the same owner authentication used for unlocking.
-        TouchID.authenticate(localizedReason: "quit AppLock while protected apps are locked") { outcome in
+        TouchID.authenticate(localizedReason: "quit PrivyLock while protected apps are locked") { outcome in
             if case .success = outcome {
                 NSApp.terminate(nil)
             }
@@ -135,7 +135,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let menu = NSMenu()
 
         open = ClosureAction { [weak self] in self?.windowController?.show() }
-        let openItem = NSMenuItem(title: "Open AppLock…", action: #selector(ClosureAction.run), keyEquivalent: "o")
+        let openItem = NSMenuItem(title: "Open PrivyLock…", action: #selector(ClosureAction.run), keyEquivalent: "o")
         openItem.target = open
         menu.addItem(openItem)
         menuRefs.append(open!)
@@ -198,7 +198,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(state)
 
         quit = ClosureAction { [weak self] in self?.requestQuit() }
-        let q = NSMenuItem(title: "Quit AppLock", action: #selector(ClosureAction.run), keyEquivalent: "q")
+        let q = NSMenuItem(title: "Quit PrivyLock", action: #selector(ClosureAction.run), keyEquivalent: "q")
         q.target = quit
         menu.addItem(q)
         menuRefs.append(quit!)
@@ -347,7 +347,7 @@ final class MainWindowController: NSObject, NSWindowDelegate {
 
     private let autolockCheckbox = NSButton(checkboxWithTitle: "Auto-lock when the screen locks", target: nil, action: nil)
     private let idlePopup = NSPopUpButton(frame: .zero, pullsDown: false)
-    private let loginCheckbox = NSButton(checkboxWithTitle: "Start AppLock at login", target: nil, action: nil)
+    private let loginCheckbox = NSButton(checkboxWithTitle: "Start PrivyLock at login", target: nil, action: nil)
     private let touchIDWarning = NSTextField(wrappingLabelWithString: "")
 
     private var rowActionTargets: [Any] = []
@@ -356,7 +356,7 @@ final class MainWindowController: NSObject, NSWindowDelegate {
         let w = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 470, height: 430),
                          styleMask: [.titled, .closable, .resizable, .miniaturizable],
                          backing: .buffered, defer: true)
-        w.title = "AppLock"
+        w.title = "PrivyLock"
         w.isReleasedWhenClosed = false
         w.minSize = NSSize(width: 420, height: 360)
         self.window = w
@@ -545,7 +545,7 @@ final class MainWindowController: NSObject, NSWindowDelegate {
         }
 
         touchIDWarning.isHidden = TouchID.isBiometricAvailable || !TouchID.isAvailable
-        touchIDWarning.stringValue = "⚠ Touch ID is unavailable. AppLock will use your Mac login password instead."
+        touchIDWarning.stringValue = "⚠ Touch ID is unavailable. PrivyLock will use your Mac login password instead."
 
         // The document view needs an explicit height. Relying only on its
         // intrinsic fitting size leaves NSScrollView with a zero-height

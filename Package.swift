@@ -2,16 +2,16 @@
 import PackageDescription
 
 let package = Package(
-    name: "AppLock",
+    name: "PrivyLock",
     platforms: [
         .macOS(.v12)
     ],
     products: [
-        .library(name: "AppLockCore", targets: ["AppLockCore"]),
-        .executable(name: "AppLock", targets: ["AppLock"])
+        .library(name: "PrivyLockCore", targets: ["PrivyLockCore"]),
+        .executable(name: "PrivyLock", targets: ["PrivyLock"])
     ],
     targets: [
-        .target(name: "AppLockCore"),
-        .executableTarget(name: "AppLock", dependencies: ["AppLockCore"])
+        .target(name: "PrivyLockCore", path: "Sources/AppLockCore"),
+        .executableTarget(name: "PrivyLock", dependencies: ["PrivyLockCore"], path: "Sources/AppLock")
     ]
 )

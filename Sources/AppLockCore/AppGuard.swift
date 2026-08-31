@@ -209,7 +209,7 @@ public final class AppGuard {
         ws.openApplication(at: target.url,
                            configuration: NSWorkspace.OpenConfiguration()) { _, error in
             if let error = error {
-                NSLog("AppLock: failed to launch \(target.name): \(error)")
+                NSLog("PrivyLock: failed to launch \(target.name): \(error)")
             }
         }
     }

@@ -1,6 +1,6 @@
 import Foundation
 
-/// The application a user chooses to protect with AppLock.
+/// The application a user chooses to protect with PrivyLock.
 ///
 /// Stored value object; no logic lives here. It captures enough about an app to
 /// re-find it later (bundle identifier), to terminate it (running app lookup),
@@ -31,7 +31,7 @@ public struct ProtectedApp: Codable, Equatable {
     }
 }
 
-/// The full, persisted AppLock configuration.
+/// The full, persisted PrivyLock configuration.
 public struct LockState: Codable, Equatable {
     /// Protected apps keyed by bundle identifier.
     public var apps: [String: ProtectedApp]
@@ -42,7 +42,7 @@ public struct LockState: Codable, Equatable {
     /// After this many minutes of no user activity, all protected apps lock. nil = disabled.
     public var idleAutoLockMinutes: Int?
 
-    /// Launch AppLock at login so protection survives restarts.
+    /// Launch PrivyLock at login so protection survives restarts.
     public var launchAtLogin: Bool
 
     public init(apps: [String: ProtectedApp] = [:],
