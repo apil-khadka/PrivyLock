@@ -19,6 +19,12 @@
       --accent-soft: #efe0bf;
       --border: rgba(47,36,29,.14);
       --shadow: 0 24px 80px rgba(71,48,21,.16);
+      --space-1: 8px;
+      --space-2: 13px;
+      --space-3: 21px;
+      --space-4: 34px;
+      --space-5: 55px;
+      --space-6: 89px;
     }
     * { box-sizing: border-box; }
     body {
@@ -30,23 +36,23 @@
         var(--bg);
       font: 16px/1.6 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    .wrap { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; }
     .brand { display: flex; gap: 10px; align-items: center; font-weight: 800; letter-spacing: -.02em; }
     .brand-logo { width: 36px; height: 36px; border-radius: 11px; object-fit: cover; box-shadow: 0 6px 18px rgba(71,48,21,.20); }
     .app-icon img { width: 26px; height: 26px; border-radius: 7px; object-fit: cover; }
     nav a { color: var(--muted); text-decoration: none; margin-left: 22px; font-weight: 600; }
     nav a:hover { color: var(--text); }
     a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 5px; }
-    .hero { display: grid; grid-template-columns: 1.618fr 1fr; gap: 55px; align-items: center; padding: 89px 0 89px; }
+    .hero { display: grid; grid-template-columns: 1.618fr 1fr; gap: var(--space-5); align-items: center; padding: var(--space-6) 0 var(--space-5); }
     .eyebrow { color: var(--accent-strong); font-weight: 800; text-transform: uppercase; letter-spacing: .13em; font-size: 12px; }
     h1 { font-size: clamp(42px, 7vw, 76px); line-height: 1.02; letter-spacing: -.06em; margin: 14px 0 21px; max-width: 740px; color: var(--text); }
     .lead { color: var(--muted); font-size: 20px; max-width: 600px; }
-    .actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 34px; }
+    .actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-4); }
     .button { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 21px; border: 1px solid var(--border); border-radius: 13px; color: var(--text); text-decoration: none; font-weight: 700; background: var(--panel); box-shadow: 0 8px 22px rgba(71,48,21,.08); }
     .button.primary { color: #fffdf7; background: var(--accent-strong); border-color: var(--accent-strong); box-shadow: 0 12px 24px rgba(149,98,13,.24); }
     .button:hover { filter: brightness(1.12); }
-    .hero-install { display: inline-flex; flex-direction: column; gap: 7px; margin-top: 34px; padding: 15px 17px; border: 1px solid rgba(149,98,13,.26); border-radius: 15px; background: rgba(255,255,255,.74); box-shadow: 0 12px 30px rgba(71,48,21,.08); }
+    .hero-install { display: inline-flex; flex-direction: column; gap: var(--space-1); margin-top: var(--space-4); padding: var(--space-2) var(--space-3); border: 1px solid rgba(149,98,13,.26); border-radius: 15px; background: rgba(255,255,255,.74); box-shadow: 0 12px 30px rgba(71,48,21,.08); }
     .hero-install strong { font-size: 12px; color: var(--accent-strong); text-transform: uppercase; letter-spacing: .1em; }
     code, pre { font-family: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
     .hero-install code { color: var(--panel-strong); font-size: 14px; line-height: 1.8; white-space: pre-line; }
@@ -60,21 +66,34 @@
     .app-row { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-top: 1px solid rgba(255,255,255,.1); }
     .app-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: var(--accent-soft); color: #68470b; font-size: 20px; }
     .app-name { flex: 1; font-weight: 650; } .status { color: #e4ba69; font-size: 13px; }
-    section { padding: 89px 0; } h2 { font-size: 34px; line-height: 1.15; letter-spacing: -.035em; margin: 0 0 13px; }
-    .section-lead { color: var(--muted); max-width: 650px; margin: 0 0 34px; }
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 21px; }
-    .card { padding: 21px; border: 1px solid var(--border); border-top: 4px solid var(--accent); border-radius: 18px; background: rgba(255,255,255,.72); box-shadow: 0 10px 30px rgba(71,48,21,.05); }
-    .card-icon { font-size: 24px; } .card h3 { margin: 10px 0 6px; font-size: 18px; } .card p { color: var(--muted); margin: 0; }
-    .install { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    section { padding: var(--space-5) 0; } h2 { font-size: 34px; line-height: 1.15; letter-spacing: -.035em; margin: 0 0 var(--space-2); }
+    .section-lead { color: var(--muted); max-width: 650px; margin: 0 0 var(--space-4); }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); grid-auto-rows: 1fr; }
+    .card { min-height: 178px; padding: var(--space-3); border: 1px solid var(--border); border-top: 4px solid var(--accent); border-radius: 18px; background: rgba(255,255,255,.72); box-shadow: 0 10px 30px rgba(71,48,21,.05); }
+    .cards-section .card { transform-origin: 50% 100%; transition: opacity 520ms ease, transform 700ms cubic-bezier(.22,.8,.28,1), box-shadow 220ms ease; }
+    .cards-section .card:nth-child(odd) { --draw-rotation: -1.2deg; }
+    .cards-section .card:nth-child(even) { --draw-rotation: 1deg; }
+    .cards-section .card:nth-child(3n) { --draw-rotation: -.6deg; }
+    body.cards-ready .cards-section .card { opacity: 0; transform: translateY(34px) rotate(var(--draw-rotation, 0deg)); }
+    body.cards-ready .cards-section .card.is-visible { opacity: 1; transform: translateY(0) rotate(0deg); }
+    body.cards-ready .cards-section .card:nth-child(2) { transition-delay: 80ms; }
+    body.cards-ready .cards-section .card:nth-child(3) { transition-delay: 160ms; }
+    body.cards-ready .cards-section .card:nth-child(4) { transition-delay: 240ms; }
+    body.cards-ready .cards-section .card:nth-child(5) { transition-delay: 320ms; }
+    body.cards-ready .cards-section .card:nth-child(6) { transition-delay: 400ms; }
+    .cards-section .card:hover { box-shadow: 0 16px 34px rgba(71,48,21,.10); }
+    .card-icon { color: var(--accent); font-size: 24px; line-height: 1; } .card h3 { margin: 10px 0 6px; font-size: 18px; } .card p { color: var(--muted); margin: 0; }
+    .install { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
     pre { overflow-x: auto; margin: 0; padding: 20px; border: 1px solid rgba(47,36,29,.14); border-radius: 14px; background: var(--panel-strong); color: #fff8e9; }
     .install-block { display: flex; flex-direction: column; gap: 10px; }
     .install-label { font-size: 12px; font-weight: 800; color: var(--accent-strong); text-transform: uppercase; letter-spacing: .1em; }
     .code-heading { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
     .copy-button { border: 1px solid rgba(149,98,13,.30); border-radius: 8px; padding: 7px 11px; color: var(--accent-strong); background: var(--accent-soft); font: 700 12px 'Poppins', sans-serif; cursor: pointer; }
     .copy-button:hover { background: #e6cf9e; }
-    .install-note { margin-top: 21px; padding: 14px 16px; border-left: 4px solid var(--accent); border-radius: 8px; background: rgba(210,168,77,.20); color: #4c3a22; }
-    footer { padding: 34px 0 50px; color: var(--muted); border-top: 1px solid var(--border); }
-    @media (max-width: 760px) { .hero, .install { grid-template-columns: 1fr; gap: 34px; } .hero { padding-top: 46px; } .grid { grid-template-columns: 1fr; } .mockup { transform: none; } nav a { margin-left: 10px; } }
+    .install-note { margin-top: var(--space-3); padding: var(--space-2) var(--space-3); border-left: 4px solid var(--accent); border-radius: 8px; background: rgba(210,168,77,.20); color: #4c3a22; }
+    footer { padding: var(--space-4) 0 var(--space-5); color: var(--muted); border-top: 1px solid var(--border); }
+    @media (prefers-reduced-motion: reduce) { .cards-section .card, body.cards-ready .cards-section .card, body.cards-ready .cards-section .card.is-visible { opacity: 1; transform: none; transition: none; } }
+    @media (max-width: 760px) { .wrap { width: min(100% - 34px, 560px); } .hero, .install { grid-template-columns: 1fr; gap: var(--space-4); } .hero { padding: var(--space-5) 0 var(--space-4); } section { padding: var(--space-5) 0; } .grid { grid-template-columns: 1fr; } .mockup { transform: none; } nav a { margin-left: 10px; } }
   </style>
 </head>
 <body>
@@ -106,16 +125,16 @@ brew install --cask privylock</code><button class="copy-button" type="button" da
         </div>
       </section>
 
-      <section>
+      <section class="cards-section">
         <h2>Protection without the clutter.</h2>
         <p class="section-lead">PrivyLock lives in the menu bar and keeps its state across restarts, with controls designed around the way macOS users actually work.</p>
         <div class="grid">
-          <article class="card"><div class="card-icon">🔐</div><h3>Touch ID + password</h3><p>Use Touch ID when it is available, with the secure macOS login-password fallback when it is not.</p></article>
-          <article class="card"><div class="card-icon">⚡</div><h3>Launch protection</h3><p>Locked apps are stopped before or immediately after launch, with a watchdog for race conditions.</p></article>
-          <article class="card"><div class="card-icon">🌙</div><h3>Automatic locking</h3><p>Lock everything on screen lock or after a configurable period of inactivity.</p></article>
-          <article class="card"><div class="card-icon">🧭</div><h3>Clear at a glance</h3><p>See every protected app, its icon, bundle identifier, and current lock state in one place.</p></article>
-          <article class="card"><div class="card-icon">🛡️</div><h3>Safe controls</h3><p>Removing locked protection or quitting while apps are protected requires owner authentication.</p></article>
-          <article class="card"><div class="card-icon">💾</div><h3>Local by design</h3><p>Authentication stays inside macOS protected services; PrivyLock stores only its local configuration.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">◉</div><h3>Touch ID + password</h3><p>Use Touch ID when it is available, with the secure macOS login-password fallback when it is not.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">↗</div><h3>Launch protection</h3><p>Locked apps are stopped before or immediately after launch, with a watchdog for race conditions.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">◐</div><h3>Automatic locking</h3><p>Lock everything on screen lock or after a configurable period of inactivity.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">⊕</div><h3>Clear at a glance</h3><p>See every protected app, its icon, bundle identifier, and current lock state in one place.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">◇</div><h3>Safe controls</h3><p>Removing locked protection or quitting while apps are protected requires owner authentication.</p></article>
+          <article class="card"><div class="card-icon" aria-hidden="true">•</div><h3>Local by design</h3><p>Authentication stays inside macOS protected services; PrivyLock stores only its local configuration.</p></article>
         </div>
       </section>
 
@@ -166,6 +185,21 @@ open -a PrivyLock</code></pre></div>
         window.setTimeout(() => { button.textContent = original; }, 1400);
       });
     });
+
+    const cards = document.querySelectorAll('.cards-section .card');
+    document.body.classList.add('cards-ready');
+    if (!('IntersectionObserver' in window)) {
+      cards.forEach((card) => card.classList.add('is-visible'));
+    } else {
+      const cardObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+      cards.forEach((card) => cardObserver.observe(card));
+    }
   </script>
 </body>
 </html>
