@@ -1,0 +1,115 @@
+name: Release macOS app
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-14
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Import Developer ID certificate
+        env:
+          CERTIFICATE_BASE64: ${{ secrets.DEVELOPER_ID_APPLICATION_CERTIFICATE_BASE64 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.DEVELOPER_ID_APPLICATION_CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.PRIVYLOCK_KEYCHAIN_PASSWORD }}
+        run: |
+          set -euo pipefail
+          keychain_path="$RUNNER_TEMP/privylock-signing.keychain-db"
+          certificate_path="$RUNNER_TEMP/developer-id-application.p12"
+          printf '%s' "$CERTIFICATE_BASE64" | base64 --decode > "$certificate_path"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$keychain_path"
+          security set-keychain-settings -lut 21600 "$keychain_path"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$keychain_path"
+          security import "$certificate_path" -k "$keychain_path" \
+            -P "$CERTIFICATE_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security
+          security set-key-partition-list -S apple-tool:,apple: \
+            -s -k "$KEYCHAIN_PASSWORD" "$keychain_path"
+          security list-keychains -d user -s "$keychain_path"
+          security default-keychain -s "$keychain_path"
+          signing_identity="$(security find-identity -v -p codesigning "$keychain_path" \
+            | awk -F '"' '/Developer ID Application/ { print $2; exit }')"
+          test -n "$signing_identity"
+          echo "SIGNING_IDENTITY=$signing_identity" >> "$GITHUB_ENV"
+          echo "PRIVYLOCK_KEYCHAIN_PATH=$keychain_path" >> "$GITHUB_ENV"
+
+      - name: Build universal signed app
+        run: |
+          set -euo pipefail
+          ARCHS=universal SIGNING_IDENTITY="$SIGNING_IDENTITY" ./build.sh release
+          lipo -info build/PrivyLock.app/Contents/MacOS/PrivyLock
+          codesign --verify --deep --strict --verbose=2 build/PrivyLock.app
+
+      - name: Create clean notarization ZIP
+        run: |
+          set -euo pipefail
+          zip_path="$RUNNER_TEMP/PrivyLock-macOS.zip"
+          ditto -c -k --keepParent build/PrivyLock.app "$zip_path"
+          if unzip -Z1 "$zip_path" | grep -qE '(^|/)__MACOSX(/|$)'; then
+            echo "ZIP contains __MACOSX" >&2
+            exit 1
+          fi
+          if ! unzip -Z1 "$zip_path" | awk -F/ 'NF == 1 && $1 != "PrivyLock.app" && $1 != "" { exit 1 }'; then
+            echo "ZIP contains an unexpected top-level entry" >&2
+            exit 1
+          fi
+          echo "PRIVYLOCK_ZIP=$zip_path" >> "$GITHUB_ENV"
+
+      - name: Submit to Apple Notary Service
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+        run: |
+          set -euo pipefail
+          xcrun notarytool submit "$PRIVYLOCK_ZIP" --wait \
+            --apple-id "$APPLE_ID" \
+            --team-id "$APPLE_TEAM_ID" \
+            --password "$APPLE_APP_SPECIFIC_PASSWORD"
+
+      - name: Staple and validate notarization
+        run: |
+          set -euo pipefail
+          xcrun stapler staple build/PrivyLock.app
+          xcrun stapler validate build/PrivyLock.app
+          spctl --assess --type execute --verbose=4 build/PrivyLock.app
+          codesign --verify --deep --strict --verbose=2 build/PrivyLock.app
+
+      - name: Create final clean ZIP and checksum
+        run: |
+          set -euo pipefail
+          rm -f "$PRIVYLOCK_ZIP"
+          ditto -c -k --keepParent build/PrivyLock.app "$PRIVYLOCK_ZIP"
+          if unzip -Z1 "$PRIVYLOCK_ZIP" | grep -qE '(^|/)__MACOSX(/|$)'; then
+            echo "ZIP contains __MACOSX" >&2
+            exit 1
+          fi
+          shasum -a 256 "$PRIVYLOCK_ZIP" | awk '{print $1}' > "$PRIVYLOCK_ZIP.sha256"
+          echo "SHA256=$(cat "$PRIVYLOCK_ZIP.sha256")"
+
+      - name: Publish release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="$GITHUB_REF_NAME"
+          gh release create "$tag" \
+            "$PRIVYLOCK_ZIP" \
+            "$PRIVYLOCK_ZIP.sha256" \
+            --verify-tag \
+            --title "PrivyLock ${tag#v}" \
+            --notes "Universal arm64 + x86_64 macOS build. Requires macOS 12 or later. Signed with Developer ID Application, notarized by Apple, stapled, and Gatekeeper-validated."
+
+      - name: Remove temporary signing keychain
+        if: ${{ always() }}
+        run: |
+          security delete-keychain "${PRIVYLOCK_KEYCHAIN_PATH:-$RUNNER_TEMP/privylock-signing.keychain-db}" >/dev/null 2>&1 || true

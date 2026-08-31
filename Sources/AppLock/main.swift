@@ -69,6 +69,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // If the user has an old Agent but the pref is off, disable it; if the
         // pref is on but no agent exists, recreate it.
         DispatchQueue.main.async {
+            LaunchAtLogin.cleanupStaleAgentIfNeeded()
             if self.guard_.store.state.launchAtLogin != LaunchAtLogin.isEnabled {
                 _ = LaunchAtLogin.isEnabled ? LaunchAtLogin.disable() : nil
                 if self.guard_.store.state.launchAtLogin {

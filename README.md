@@ -47,7 +47,10 @@ Sources/
 
 ## Building and running
 
-Requirements: macOS 12+, Xcode command line tools (or Xcode). Swift 5.9+.
+Requirements: macOS 12+, Xcode command line tools (or Xcode), Swift 5.9+.
+
+The build script produces a universal `arm64` + `x86_64` app by default. Set
+`ARCHS=arm64` or `ARCHS=x86_64` when a single-architecture build is needed.
 
 ```bash
 ./build.sh release          # produces build/PrivyLock.app
@@ -60,9 +63,10 @@ You can also run the un-bundled binary:
 swift run PrivyLock
 ```
 
-> **Note on code signing:** the build script ad-hoc signs the bundle so the OS
-> treats it as a regular app and system prompts work. For distribution you would
-> sign with your Developer ID and notarize.
+> **Local signing note:** local builds are ad-hoc signed so macOS treats the
+> bundle as an app during development. The tagged release workflow signs with a
+> Developer ID Application certificate, notarizes with Apple, staples the ticket,
+> and validates with both `codesign` and Gatekeeper before publishing.
 
 ## Using it
 
@@ -119,6 +123,20 @@ The legacy AppLock path is retained so existing installations keep their
 protected-app configuration after the PrivyLock rename.
 
 Delete it to reset PrivyLock completely.
+
+## Distribution and Homebrew
+
+The release workflow publishes a stable `PrivyLock-macOS.zip` asset and a
+matching `PrivyLock-macOS.zip.sha256` file for each version tag. Production
+artifacts support both Apple Silicon (`arm64`) and Intel (`x86_64`) Macs and
+require macOS 12 or later. The ZIP contains only `PrivyLock.app`; it is signed
+with Developer ID Application, notarized by Apple, stapled, and Gatekeeper
+assessed before release.
+
+To remove PrivyLock while ensuring its login agent is unloaded, run
+`./uninstall.sh` before deleting the app bundle. On startup, PrivyLock also
+removes a stale agent if its recorded executable path no longer matches the
+current bundle.
 
 ## Security model and limitations
 
