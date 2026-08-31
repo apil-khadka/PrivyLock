@@ -133,6 +133,18 @@ require macOS 12 or later. The ZIP contains only `PrivyLock.app`; it is signed
 with Developer ID Application, notarized by Apple, stapled, and Gatekeeper
 assessed before release.
 
+The workflow reads signing credentials only from GitHub Actions Secrets:
+`DEVELOPER_ID_APPLICATION_CERTIFICATE_BASE64`,
+`DEVELOPER_ID_APPLICATION_CERTIFICATE_PASSWORD`,
+`PRIVYLOCK_KEYCHAIN_PASSWORD`, `APPLE_ID`, `APPLE_TEAM_ID`, and
+`APPLE_APP_SPECIFIC_PASSWORD`. None of these values belong in the repository.
+Push a tag such as `v1.0.1` after configuring those secrets to publish a
+production release.
+
+The existing `v1.0.0` asset predates this production pipeline and is not a
+notarized Homebrew release. Use the first tag produced by the workflow for the
+cask.
+
 To remove PrivyLock while ensuring its login agent is unloaded, run
 `./uninstall.sh` before deleting the app bundle. On startup, PrivyLock also
 removes a stale agent if its recorded executable path no longer matches the
