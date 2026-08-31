@@ -6,60 +6,74 @@
   <meta name="description" content="PrivyLock protects macOS apps with Touch ID or your Mac login password.">
   <title>PrivyLock for macOS</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
     :root {
-      color-scheme: dark;
-      --bg: #0d1117;
-      --panel: #151b24;
-      --panel-strong: #1d2633;
-      --text: #f4f7fb;
-      --muted: #aab5c4;
-      --accent: #55a8ff;
-      --accent-strong: #247de2;
-      --border: rgba(255,255,255,.12);
-      --shadow: 0 24px 80px rgba(0,0,0,.28);
+      color-scheme: light;
+      --bg: #fff8f2;
+      --panel: #ffffff;
+      --panel-strong: #26152d;
+      --text: #26152d;
+      --muted: #725f72;
+      --accent: #ff4f72;
+      --accent-strong: #ed315d;
+      --lime: #d9f34f;
+      --aqua: #16cdb8;
+      --violet: #7656ff;
+      --border: rgba(38,21,45,.12);
+      --shadow: 0 24px 80px rgba(103,42,62,.18);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       color: var(--text);
       background:
-        radial-gradient(circle at 80% 0%, rgba(36,125,226,.22), transparent 34rem),
-        radial-gradient(circle at 0% 30%, rgba(85,168,255,.10), transparent 30rem),
+        radial-gradient(circle at 86% 2%, rgba(217,243,79,.55), transparent 27rem),
+        radial-gradient(circle at 6% 30%, rgba(255,79,114,.16), transparent 29rem),
+        radial-gradient(circle at 78% 68%, rgba(22,205,184,.14), transparent 25rem),
         var(--bg);
-      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      font: 16px/1.6 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     .wrap { width: min(1080px, calc(100% - 40px)); margin: 0 auto; }
     nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; }
-    .brand { display: flex; gap: 10px; align-items: center; font-weight: 700; letter-spacing: .01em; }
-    .brand-logo { width: 34px; height: 34px; border-radius: 10px; object-fit: cover; }
+    .brand { display: flex; gap: 10px; align-items: center; font-weight: 800; letter-spacing: -.02em; }
+    .brand-logo { width: 36px; height: 36px; border-radius: 11px; object-fit: cover; box-shadow: 0 6px 18px rgba(118,86,255,.24); }
     .app-icon img { width: 26px; height: 26px; border-radius: 7px; object-fit: cover; }
-    nav a { color: var(--muted); text-decoration: none; margin-left: 22px; }
+    nav a { color: var(--muted); text-decoration: none; margin-left: 22px; font-weight: 600; }
     nav a:hover { color: var(--text); }
+    a:focus-visible { outline: 3px solid var(--aqua); outline-offset: 4px; border-radius: 5px; }
     .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 64px; align-items: center; padding: 76px 0 92px; }
-    .eyebrow { color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .13em; font-size: 12px; }
-    h1 { font-size: clamp(42px, 7vw, 76px); line-height: 1.02; letter-spacing: -.055em; margin: 14px 0 22px; }
+    .eyebrow { color: var(--accent-strong); font-weight: 800; text-transform: uppercase; letter-spacing: .13em; font-size: 12px; }
+    h1 { font-size: clamp(42px, 7vw, 76px); line-height: 1.02; letter-spacing: -.06em; margin: 14px 0 22px; max-width: 740px; background: linear-gradient(105deg, #d51f59 0%, #ff6b3d 52%, #7656ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .lead { color: var(--muted); font-size: 20px; max-width: 600px; }
     .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 18px; border: 1px solid var(--border); border-radius: 11px; color: var(--text); text-decoration: none; font-weight: 700; background: var(--panel); }
-    .button.primary { background: var(--accent-strong); border-color: var(--accent-strong); }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 19px; border: 1px solid var(--border); border-radius: 13px; color: var(--text); text-decoration: none; font-weight: 700; background: var(--panel); box-shadow: 0 8px 22px rgba(103,42,62,.08); }
+    .button.primary { color: #fff; background: var(--accent-strong); border-color: var(--accent-strong); box-shadow: 0 12px 24px rgba(237,49,93,.24); }
     .button:hover { filter: brightness(1.12); }
-    .mockup { border: 1px solid var(--border); border-radius: 22px; padding: 14px; background: rgba(21,27,36,.82); box-shadow: var(--shadow); transform: rotate(2deg); }
-    .window { overflow: hidden; border: 1px solid rgba(255,255,255,.16); border-radius: 15px; background: #20242a; }
+    .hero-install { display: inline-flex; flex-direction: column; gap: 7px; margin-top: 25px; padding: 15px 17px; border: 1px solid rgba(237,49,93,.22); border-radius: 15px; background: rgba(255,255,255,.74); box-shadow: 0 12px 30px rgba(103,42,62,.08); }
+    .hero-install strong { font-size: 12px; color: var(--accent-strong); text-transform: uppercase; letter-spacing: .1em; }
+    code, pre { font-family: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .hero-install code { color: var(--panel-strong); font-size: 14px; line-height: 1.8; }
+    .mockup { border: 1px solid rgba(118,86,255,.22); border-radius: 22px; padding: 14px; background: linear-gradient(145deg, rgba(255,255,255,.94), rgba(255,226,220,.78)); box-shadow: var(--shadow); transform: rotate(2deg); }
+    .window { overflow: hidden; border: 1px solid rgba(255,255,255,.18); border-radius: 15px; background: #26152d; }
     .window-bar { display: flex; gap: 6px; padding: 13px; border-bottom: 1px solid rgba(255,255,255,.1); }
     .dot { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
     .dot:nth-child(2) { background: #febc2e; } .dot:nth-child(3) { background: #28c840; }
-    .window-body { padding: 22px; }
+    .window-body { padding: 22px; color: #fff7f2; }
     .window-title { font-size: 20px; font-weight: 700; margin-bottom: 18px; }
     .app-row { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-top: 1px solid rgba(255,255,255,.1); }
-    .app-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: #d9e8ff; color: #176bd1; font-size: 20px; }
-    .app-name { flex: 1; font-weight: 650; } .status { color: #ff837d; font-size: 13px; }
+    .app-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: var(--lime); color: #17635d; font-size: 20px; }
+    .app-name { flex: 1; font-weight: 650; } .status { color: #ff9db2; font-size: 13px; }
     section { padding: 70px 0; } h2 { font-size: 34px; line-height: 1.15; letter-spacing: -.035em; margin: 0 0 14px; }
     .section-lead { color: var(--muted); max-width: 650px; margin: 0 0 30px; }
     .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .card { padding: 24px; border: 1px solid var(--border); border-radius: 16px; background: rgba(21,27,36,.72); }
+    .card { padding: 24px; border: 1px solid var(--border); border-radius: 18px; background: rgba(255,255,255,.72); box-shadow: 0 10px 30px rgba(103,42,62,.05); }
+    .card:nth-child(3n+1) { border-top: 4px solid var(--accent); } .card:nth-child(3n+2) { border-top: 4px solid var(--aqua); } .card:nth-child(3n) { border-top: 4px solid var(--violet); }
     .card-icon { font-size: 24px; } .card h3 { margin: 10px 0 6px; font-size: 18px; } .card p { color: var(--muted); margin: 0; }
     .install { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    pre { overflow-x: auto; margin: 0; padding: 20px; border: 1px solid var(--border); border-radius: 14px; background: #090d12; color: #d8e6f7; }
+    pre { overflow-x: auto; margin: 0; padding: 20px; border: 1px solid rgba(38,21,45,.14); border-radius: 14px; background: var(--panel-strong); color: #fff5ee; }
+    .install-block { display: flex; flex-direction: column; gap: 10px; }
+    .install-label { font-size: 12px; font-weight: 800; color: var(--accent-strong); text-transform: uppercase; letter-spacing: .1em; }
+    .install-note { margin-top: 16px; padding: 14px 16px; border-left: 4px solid var(--lime); border-radius: 8px; background: rgba(217,243,79,.23); color: #4c3a22; }
     footer { padding: 34px 0 50px; color: var(--muted); border-top: 1px solid var(--border); }
     @media (max-width: 760px) { .hero, .install { grid-template-columns: 1fr; gap: 34px; } .hero { padding-top: 46px; } .grid { grid-template-columns: 1fr; } .mockup { transform: none; } nav a { margin-left: 10px; } }
   </style>
@@ -78,9 +92,10 @@
           <h1>Your private apps, actually private.</h1>
           <p class="lead">PrivyLock keeps selected apps closed until you authenticate with Touch ID or your Mac login password. Simple, local, and built for macOS.</p>
           <div class="actions">
-            <a class="button primary" href="https://github.com/apil-khadka/PrivyLock/releases/latest/download/PrivyLock-macOS.zip">Download for Mac</a>
-            <a class="button" href="https://github.com/apil-khadka/PrivyLock">View source</a>
+            <a class="button primary" href="#install">Install with Homebrew</a>
+            <a class="button" href="https://github.com/apil-khadka/PrivyLock/releases/latest/download/PrivyLock-macOS.zip">Download ZIP</a>
           </div>
+          <div class="hero-install"><strong>Recommended install</strong><code>brew tap apil-khadka/tap<br>brew install --cask privylock</code></div>
         </div>
         <div class="mockup" aria-label="PrivyLock window preview">
           <div class="window"><div class="window-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div class="window-body">
@@ -104,20 +119,19 @@
         </div>
       </section>
 
-      <section>
-        <h2>Get started in seconds.</h2>
-        <p class="section-lead">Download the latest release, move PrivyLock wherever you keep your apps, and add protection from the menu-bar shield.</p>
+      <section id="install">
+        <h2>Install once. Stay protected.</h2>
+        <p class="section-lead">Homebrew is the easiest route for updates. Prefer a manual install? The latest universal ZIP is available alongside the cask.</p>
         <div class="install">
-          <pre><code>1. Download PrivyLock-macOS.zip
-2. Unzip and open PrivyLock.app
-3. Add an app to protect
-4. Choose Lock</code></pre>
-          <pre><code># Build from source
-git clone https://github.com/apil-khadka/PrivyLock.git
-cd PrivyLock
-./build.sh release
-open build/PrivyLock.app</code></pre>
+          <div class="install-block"><div class="install-label">Recommended · Homebrew</div><pre><code>brew tap apil-khadka/tap
+brew install --cask privylock
+open -a PrivyLock</code></pre></div>
+          <div class="install-block"><div class="install-label">Manual · Universal ZIP</div><pre><code>Download PrivyLock-macOS.zip
+Unzip and open PrivyLock.app
+Approve first launch if macOS asks
+Add an app and choose Lock</code></pre></div>
         </div>
+        <p class="install-note"><strong>First launch:</strong> the current release is ad-hoc signed. If macOS blocks it, open <strong>System Settings → Privacy &amp; Security → Open Anyway</strong>, or Control-click the app and choose <strong>Open</strong>.</p>
       </section>
     </main>
 

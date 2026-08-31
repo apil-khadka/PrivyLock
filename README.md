@@ -13,6 +13,32 @@ PrivyLock runs quietly in the menu bar (no Dock icon). Its state survives restar
 
 ---
 
+## Install with Homebrew
+
+The recommended installation uses the maintained Homebrew tap:
+
+```bash
+brew tap apil-khadka/tap
+brew install --cask privylock
+```
+
+Then open **PrivyLock** from Applications or run:
+
+```bash
+open -a PrivyLock
+```
+
+To remove it and clean its saved configuration and login agent:
+
+```bash
+brew uninstall --zap --cask privylock
+```
+
+The current cask installs the universal `arm64` + `x86_64` build and requires
+macOS 12 or later. Because the app is currently ad-hoc signed, macOS may ask
+you to approve the first launch in **System Settings → Privacy & Security** or
+with **Control-click → Open**.
+
 ## Why PrivyLock uses macOS owner authentication
 
 macOS does **not** expose a public "enroll arbitrary app into Touch ID" API that
@@ -141,6 +167,13 @@ they must never be committed to the repository.
 The existing `v1.0.0` asset predates the universal-build pipeline. Use the
 first universal tag produced by the workflow for the cask, with the documented
 ad-hoc signing limitation.
+
+The current Homebrew cask release is `v1.0.1`:
+
+```text
+URL: https://github.com/apil-khadka/PrivyLock/releases/download/v1.0.1/PrivyLock-macOS.zip
+SHA-256: 8fe5daba69251fa8e415df7ea004880be853bb65a541bd80e6faa13e86cc8d65
+```
 
 To remove PrivyLock while ensuring its login agent is unloaded, run
 `./uninstall.sh` before deleting the app bundle. On startup, PrivyLock also
