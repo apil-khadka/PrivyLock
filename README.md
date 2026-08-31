@@ -63,10 +63,10 @@ You can also run the un-bundled binary:
 swift run PrivyLock
 ```
 
-> **Local signing note:** local builds are ad-hoc signed so macOS treats the
-> bundle as an app during development. The tagged release workflow signs with a
-> Developer ID Application certificate, notarizes with Apple, staples the ticket,
-> and validates with both `codesign` and Gatekeeper before publishing.
+> **Signing note:** local and current tagged builds are ad-hoc signed. macOS may
+> require users to approve the first launch in System Settings or by using
+> Control-click → Open. Developer ID signing and notarization can be enabled later
+> by adding Apple Developer credentials to the release workflow.
 
 ## Using it
 
@@ -129,21 +129,18 @@ Delete it to reset PrivyLock completely.
 The release workflow publishes a stable `PrivyLock-macOS.zip` asset and a
 matching `PrivyLock-macOS.zip.sha256` file for each version tag. Production
 artifacts support both Apple Silicon (`arm64`) and Intel (`x86_64`) Macs and
-require macOS 12 or later. The ZIP contains only `PrivyLock.app`; it is signed
-with Developer ID Application, notarized by Apple, stapled, and Gatekeeper
-assessed before release.
+require macOS 12 or later. The ZIP contains only `PrivyLock.app` and is ad-hoc
+signed for now. It is not notarized, so Gatekeeper may display an approval
+warning on first launch.
 
-The workflow reads signing credentials only from GitHub Actions Secrets:
-`DEVELOPER_ID_APPLICATION_CERTIFICATE_BASE64`,
-`DEVELOPER_ID_APPLICATION_CERTIFICATE_PASSWORD`,
-`PRIVYLOCK_KEYCHAIN_PASSWORD`, `APPLE_ID`, `APPLE_TEAM_ID`, and
-`APPLE_APP_SPECIFIC_PASSWORD`. None of these values belong in the repository.
-Push a tag such as `v1.0.1` after configuring those secrets to publish a
-production release.
+The release workflow does not require Apple credentials for ad-hoc signing.
+When Apple Developer membership is available, Developer ID signing and
+notarization credentials can be supplied through GitHub Actions Secrets only;
+they must never be committed to the repository.
 
-The existing `v1.0.0` asset predates this production pipeline and is not a
-notarized Homebrew release. Use the first tag produced by the workflow for the
-cask.
+The existing `v1.0.0` asset predates the universal-build pipeline. Use the
+first universal tag produced by the workflow for the cask, with the documented
+ad-hoc signing limitation.
 
 To remove PrivyLock while ensuring its login agent is unloaded, run
 `./uninstall.sh` before deleting the app bundle. On startup, PrivyLock also
