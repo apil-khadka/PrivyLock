@@ -172,11 +172,11 @@ The existing `v1.0.0` asset predates the universal-build pipeline. Use the
 first universal tag produced by the workflow for the cask, with the documented
 ad-hoc signing limitation.
 
-The current Homebrew cask release is `v1.0.1`:
+The current Homebrew cask release is `v1.0.2`:
 
 ```text
-URL: https://github.com/apil-khadka/PrivyLock/releases/download/v1.0.1/PrivyLock-macOS.zip
-SHA-256: 8fe5daba69251fa8e415df7ea004880be853bb65a541bd80e6faa13e86cc8d65
+URL: https://github.com/apil-khadka/PrivyLock/releases/download/v1.0.2/PrivyLock-macOS.zip
+SHA-256: 3d62d8f765192ddfd44f6dab29d04b351e89fe7f777a6d73c8a1646209f2bfb1
 ```
 
 To remove PrivyLock while ensuring its login agent is unloaded, run
