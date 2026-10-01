@@ -1,0 +1,27 @@
+---
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
+import '@fontsource/poppins/latin-600.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import { getImage } from 'astro:assets';
+import logo from '../../public/assets/privylock-logo.png';
+const favicon = await getImage({ src: logo, width: 64, height: 64, format: 'png' });
+import Footer from '../components/Footer.astro';
+import { withBase } from '../lib/site';
+const { title = 'PrivyLock | App privacy for your Mac', description = 'Protect selected macOS apps with Touch ID or your Mac password. Installation guides, security details, and the latest PrivyLock releases.' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title><meta name="description" content={description} />
+    <link rel="canonical" href={canonical} /><link rel="icon" type="image/png" href={favicon.src} />
+    <meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:type" content="website" /><meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(withBase('assets/privylock-logo.png'), Astro.site)} />
+    <meta name="theme-color" content="#70428a" />
+  </head>
+  <body><a class="skip-link" href="#main">Skip to content</a><Header /><slot /><Footer /></body>
+</html>

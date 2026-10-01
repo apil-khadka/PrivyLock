@@ -1,4 +1,4 @@
-# PrivyLock
+# <img src="docs/public/assets/privylock-logo.png" width="40" height="40" alt="" /> PrivyLock
 
 A Swift macOS menu-bar app that protects a chosen app so it can only be opened
 again after you authenticate with **Touch ID or your Mac login password**.
@@ -10,6 +10,10 @@ again after you authenticate with **Touch ID or your Mac login password**.
   falls back to the Mac login password when Touch ID is unavailable or declined.
 
 PrivyLock runs quietly in the menu bar (no Dock icon). Its state survives restarts.
+
+Read the [website and documentation](https://apil-khadka.github.io/PrivyLock/),
+[release history](https://apil-khadka.github.io/PrivyLock/releases/), or
+[website package guide](docs/README.md).
 
 ---
 

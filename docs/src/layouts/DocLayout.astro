@@ -1,0 +1,11 @@
+---
+import SiteLayout from './SiteLayout.astro';
+import { docsNavigation, withBase } from '../lib/site';
+const { title, description } = Astro.props;
+---
+<SiteLayout title={`${title} | PrivyLock docs`} description={description}>
+  <div class="container docs-grid">
+    <aside class="docs-sidebar"><p class="eyebrow">Documentation</p><nav aria-label="Documentation">{docsNavigation.map(([label, path]) => <a href={withBase(path)} aria-current={Astro.url.pathname === withBase(path) ? 'page' : undefined}>{label}</a>)}</nav></aside>
+    <main id="main" class="prose"><h1>{title}</h1><p class="lead">{description}</p><slot /></main>
+  </div>
+</SiteLayout>

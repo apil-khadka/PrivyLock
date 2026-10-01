@@ -1,0 +1,32 @@
+{
+  "updatedAt": "2026-10-01T03:16:05.674Z",
+  "repository": {
+    "name": "apil-khadka/PrivyLock",
+    "url": "https://github.com/apil-khadka/PrivyLock",
+    "stars": 0
+  },
+  "releases": [
+    {
+      "tag": "v1.0.1",
+      "name": "PrivyLock 1.0.1",
+      "publishedAt": "2026-08-31T17:05:44Z",
+      "url": "https://github.com/apil-khadka/PrivyLock/releases/tag/v1.0.1",
+      "prerelease": false,
+      "notes": "Universal arm64 + x86_64 macOS build for macOS 12 or later. Ad-hoc signed for distribution while Apple Developer membership is unavailable; Gatekeeper may require the user to approve the first launch.",
+      "downloadURL": "https://github.com/apil-khadka/PrivyLock/releases/download/v1.0.1/PrivyLock-macOS.zip",
+      "downloadSize": 1335104,
+      "checksumURL": "https://github.com/apil-khadka/PrivyLock/releases/download/v1.0.1/PrivyLock-macOS.zip.sha256"
+    },
+    {
+      "tag": "v1.0.0",
+      "name": "PrivyLock 1.0.0",
+      "publishedAt": "2026-08-31T16:26:31Z",
+      "url": "https://github.com/apil-khadka/PrivyLock/releases/tag/v1.0.0",
+      "prerelease": false,
+      "notes": "First public release of PrivyLock, a native macOS menu-bar app locker.\n\n- Protect selected apps with Touch ID or Mac login password fallback.\n- Enforce locks across app launches with watchdog coverage.\n- See protected app icons, identifiers, and lock state at a glance.\n- Includes the signed macOS app bundle: PrivyLock-macOS.zip.",
+      "downloadURL": "https://github.com/apil-khadka/PrivyLock/releases/download/v1.0.0/PrivyLock-macOS.zip",
+      "downloadSize": 1213729,
+      "checksumURL": null
+    }
+  ]
+}

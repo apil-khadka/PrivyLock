@@ -1,0 +1,10 @@
+---
+import { releaseParagraphs } from '../lib/github.mjs';
+const { release, latest = false } = Astro.props;
+const date = new Date(release.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+<article class="release-entry">
+  <div class="release-heading"><h2><a href={release.url}>{release.tag}</a></h2><span>{latest ? 'Latest stable release' : release.prerelease ? 'Prerelease' : 'Stable release'}</span><time datetime={release.publishedAt}>{date}</time></div>
+  <div class="release-notes">{releaseParagraphs(release.notes).map((paragraph: string) => <p>{paragraph}</p>)}</div>
+  <div class="release-links">{release.downloadURL && <a class="button button-small" href={release.downloadURL}>Download for macOS</a>}{release.checksumURL && <a href={release.checksumURL}>SHA-256 checksum</a>}<a href={release.url}>Full release details</a></div>
+</article>

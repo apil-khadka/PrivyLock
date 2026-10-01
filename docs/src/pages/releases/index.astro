@@ -1,0 +1,10 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ReleaseCard from '../../components/ReleaseCard.astro';
+import data from '../../data/github.json';
+import { latestStable } from '../../lib/github.mjs';
+const latest = latestStable(data.releases);
+---
+<SiteLayout title="Releases | PrivyLock" description="PrivyLock release notes, macOS downloads, checksums, and version history.">
+  <main id="main" class="container releases-page"><p class="eyebrow">What's new</p><h1>Releases</h1><p class="lead">Published versions, download links, and release notes from GitHub.</p><p class="release-meta">macOS 12 or later. Current builds support Apple Silicon and Intel. <a href="https://github.com/apil-khadka/PrivyLock/releases">Watch releases on GitHub →</a></p><div class="release-list">{data.releases.length ? data.releases.map(release => <ReleaseCard release={release} latest={release.tag === latest?.tag} />) : <p>No releases have been published yet.</p>}</div><p class="fine-print">Release data checked <time datetime={data.updatedAt}>{new Date(data.updatedAt).toLocaleString('en-US', { dateStyle: 'medium', timeZone: 'UTC' })} UTC</time>. This page refreshes after releases and every six hours.</p></main>
+</SiteLayout>

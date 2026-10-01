@@ -1,0 +1,21 @@
+{
+  "name": "@privylock/docs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "PrivyLock product documentation and release website",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "sync:github": "node scripts/sync-github.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "npm run test && npm run build"
+  },
+  "dependencies": {
+    "astro": "7.3.4",
+    "@fontsource/inter": "5.2.8",
+    "@fontsource/poppins": "5.2.7"
+  }
+}

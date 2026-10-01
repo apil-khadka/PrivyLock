@@ -2,3 +2,7 @@
 build/
 *.swiftmodule
 .DS_Store
+
+docs/node_modules/
+docs/dist/
+docs/.astro/

@@ -1,0 +1,13 @@
+---
+import DocLayout from '../../layouts/DocLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import { withBase } from '../../lib/site';
+---
+<DocLayout title="Getting started" description="Set up PrivyLock and protect your first app.">
+  <h2>Requirements</h2><p>Use macOS 12 or later. The current universal download supports both Apple Silicon and Intel Macs. Touch ID is optional; macOS owner authentication can use your Mac login password.</p>
+  <h2>Install with Homebrew</h2><CodeBlock code={'brew tap apil-khadka/tap\nbrew install --cask privylock\nopen -a PrivyLock'} />
+  <h2>Install from a release</h2><ol><li>Download the ZIP from the <a href={withBase('releases/')}>releases page</a>.</li><li>Extract it and move PrivyLock.app into Applications.</li><li>Open PrivyLock. If macOS asks for approval, use Control-click → Open or the approval option in System Settings → Privacy &amp; Security.</li></ol><p>Current builds are ad-hoc signed and are not notarized. Download from the project's GitHub releases and verify the published checksum when one is available.</p>
+  <h2>Protect an app</h2><ol><li>Click the PrivyLock shield in your menu bar to open its management controls.</li><li>Use the add-app control to choose an installed desktop app.</li><li>Save work in the selected app before locking it.</li><li>Lock the app. PrivyLock closes it and stops further launches while it stays locked.</li><li>Use its unlock control and complete the macOS authentication prompt when you need access.</li></ol><p>Unlocking grants access until you lock the app again or an enabled automatic-lock rule runs. Closing the management window keeps PrivyLock running in the menu bar.</p>
+  <h2>Automatic locking and startup</h2><p>PrivyLock can relock apps on screen lock, sleep, and user switching. Configure inactivity locking and startup at login in its settings. Confirm that automatic locking suits your work: it can close apps with unsaved changes.</p>
+  <h2>Remove PrivyLock</h2><p>Turn off startup at login before removing the app. For a Homebrew installation:</p><CodeBlock code="brew uninstall --zap --cask privylock" /><p>For a source installation, use the repository's uninstall script with the installed app path. Removing configuration also removes your protected-app list.</p>
+</DocLayout>

@@ -1,0 +1,16 @@
+---
+const { code, label = 'Terminal' } = Astro.props;
+---
+<div class="code-block"><div class="code-toolbar"><span>{label}</span><button type="button" data-copy aria-label={`Copy ${label.toLowerCase()} commands`}>Copy</button></div><pre><code>{code}</code></pre><span class="copy-status" aria-live="polite"></span></div>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const block = button.closest('.code-block');
+      const code = block?.querySelector('code')?.textContent;
+      const status = block?.querySelector('.copy-status');
+      if (!code || !status) return;
+      try { await navigator.clipboard.writeText(code); status.textContent = 'Copied'; }
+      catch { status.textContent = 'Select the commands to copy them.'; }
+    });
+  });
+</script>

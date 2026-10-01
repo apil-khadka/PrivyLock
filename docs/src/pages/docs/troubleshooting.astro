@@ -1,0 +1,14 @@
+---
+import DocLayout from '../../layouts/DocLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import { withBase } from '../../lib/site';
+---
+<DocLayout title="Troubleshooting" description="Resolve common installation, authentication, and protection issues.">
+  <h2>macOS blocks the first launch</h2><p>Current releases are ad-hoc signed, without Apple notarization. Confirm that you downloaded from the project's <a href={withBase('releases/')}>release page</a>. Use Control-click → Open, or approve the app in System Settings → Privacy &amp; Security. Do not disable Gatekeeper globally.</p>
+  <h2>Touch ID is unavailable</h2><p>Use the Mac login password fallback in the system prompt. Touch ID may require a password after restarting or under other macOS policies. If owner authentication cannot run, leave the app locked and resolve your Mac's authentication setup.</p>
+  <h2>An app opens briefly and then disappears</h2><p>This is expected for a locked app: PrivyLock reacts after launch. Unlock it from PrivyLock before opening it. This brief window is also why PrivyLock cannot guarantee that an app's content is never displayed.</p>
+  <h2>A protected app stays open</h2><p>Check that PrivyLock is running, the entry is locked, and you are opening the same app copy you added. An app's separate helper or a different installation may not be covered by that entry. Save your work before trying another lock operation.</p>
+  <h2>Startup at login does not work</h2><p>Confirm startup is enabled in PrivyLock and inspect System Settings → General → Login Items. macOS can require approval or disable an item. Keep the app installed in a stable location rather than running it from the extracted downloads folder.</p>
+  <h2>Check a release download</h2><p>For releases with a SHA-256 file, compare that value with your ZIP's hash:</p><CodeBlock code="shasum -a 256 ~/Downloads/PrivyLock-macOS.zip" /><p>A checksum detects an incomplete or altered download. Download both files from the same GitHub release.</p>
+  <h2>Report a problem</h2><p><a href="https://github.com/apil-khadka/PrivyLock/issues/new">Open an issue</a> with your macOS version, chip type, PrivyLock version, steps to reproduce, and what happened. Include only non-sensitive screenshots. Do not include passwords or private app content.</p>
+</DocLayout>

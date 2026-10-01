@@ -1,0 +1,11 @@
+---
+import DocLayout from '../../layouts/DocLayout.astro';
+import { withBase } from '../../lib/site';
+---
+<DocLayout title="PrivyLock documentation" description="Install PrivyLock, protect your apps, and understand how it works.">
+  <div class="doc-links"><a href={withBase('docs/getting-started/')}><strong>Getting started</strong><span>Install, add an app, lock, and unlock.</span></a><a href={withBase('docs/security/')}><strong>Security model</strong><span>Authentication, enforcement, and practical limits.</span></a><a href={withBase('docs/troubleshooting/')}><strong>Troubleshooting</strong><span>First launch, authentication, and startup issues.</span></a><a href={withBase('docs/development/')}><strong>Development</strong><span>Build the app, contribute, and maintain this site.</span></a></div>
+  <h2>What PrivyLock does</h2><p>PrivyLock is a native Swift utility for macOS 12 or later. It runs in the menu bar and manages a list of apps you want to keep closed. Unlocking uses macOS owner authentication with Touch ID or your Mac login password.</p>
+  <p>Protection depends on PrivyLock running. Launch notifications and a periodic watchdog stop protected apps while they are locked. An app can start briefly before it is closed.</p>
+  <h2>Before you lock an app</h2><p>Save your work. Locking closes the selected app and can force it to quit if it does not close normally. Unsaved changes may be lost. Read the <a href={withBase('docs/security/')}>security model</a> before relying on PrivyLock.</p>
+  <h2>Versioned behavior</h2><p>These user guides describe the published release. The repository can contain improvements that are not yet available in a download. Check <a href={withBase('releases/')}>release notes</a> for the version you install.</p>
+</DocLayout>
